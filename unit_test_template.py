@@ -37,5 +37,9 @@ class test_name(TestCase):
         two = self.two
         self.assertTrue(two == 2, "two is 2")
 
+    @unittest.skip("skipもできる")
+    def test_skip(self):
+        print("skip")
+
 if __name__ == "__main__":
     unittest.main()
