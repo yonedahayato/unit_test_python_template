@@ -19,13 +19,13 @@ class test_name(TestCase):
 
     # 各テスト後に呼び出される
     # テストの後処理（成果物の削除）やDB処理の後処理などを行う
+    def tearDown(self):
+        print('+ テスト後処理')
+
     @classmethod
     def tearDownClass(cls):
         print('*** 全体後処理 ***')
         print("cls.three is {}".format(cls.three))
-
-    def tearDown(self):
-        print('+ テスト後処理')
 
     def test_do_something(self):
         print("test_do_something")
