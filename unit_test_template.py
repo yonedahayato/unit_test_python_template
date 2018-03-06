@@ -41,5 +41,13 @@ class test_name(TestCase):
     def test_skip(self):
         print("skip")
 
+    def test_subTest(self):
+        def same_value(x):
+            return x
+
+        for i in range(10):
+            with self.subTest(arg_1=1, arg2=2):
+                self.assertEqual(same_value(i), i)
+
 if __name__ == "__main__":
     unittest.main()
