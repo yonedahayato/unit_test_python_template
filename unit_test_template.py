@@ -36,6 +36,9 @@ class test_name(TestCase):
             for Index in range(len(cls.check_data_dict["data_name"])):
                 print(cls.check_data_dict["data_name"][Index])
                 print(cls.check_data_dict["data"][Index])
+
+            # cls.compare_data("data_name1", "data_name2")
+
         else:
             print("check_data`s is invalid length.")
 
