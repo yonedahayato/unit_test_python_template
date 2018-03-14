@@ -1,5 +1,4 @@
-
-import helloworld
+from App import Test_Hander
 
 from tornado.escape import to_unicode
 from tornado.testing import AsyncHTTPTestCase, gen_test
@@ -12,12 +11,15 @@ class HelloWorldTest(AsyncHTTPTestCase):
         print("setup")
 
     def get_app(self):
-        return helloworld.app
+        application = tornado.web.Application([
+            (r"/test", Test_Handler)
+        ])
+        return application
 
     @gen_test(timeout=10)
     def test_helloworld(self):
-        response = yield self.http_client.fetch(self.get_url('/'))
-        self.assertEqual(to_unicode(response.body), "Hello, world")
+        response = yield self.http_client.fetch(self.get_url('/test'))
+        self.assertEqual(to_unicode(response.body), "test")
 
     @gen_test
     def test_404(self):
