@@ -7,9 +7,9 @@ from tornado.httpclient import HTTPRequest
 
 # ヘルパー関数
 def urlencode_request_params(**params):
-    return urllib.urlencode(
+    return urllib.parse.urlencode(
         dict(
-            [k, v.encode("utf-8") if isinstance(v, unicode) else v]
+            [k, v.encode("utf-8") if isinstance(v, str) else v]
             for k, v in params.items()
         )
     )
@@ -90,7 +90,7 @@ class TestSample(tornado.testing.AsyncHTTPTestCase):
         path = "%s?%s" % ("/profile", urlencode_request_params(**kwargs))
         response = self.fetch(path)
         self.assertEqual(response.code, 200)
-        self.assertEqual(response.body, "ok")
+        self.assertEqual(response.body.decode("utf-8"), "ok")
 
     def test_profile_404(self):
         """プロフィールのリクエストが間違っている場合404を返してるかのテスト
@@ -110,7 +110,7 @@ class TestSample(tornado.testing.AsyncHTTPTestCase):
             path = "/account"
             response = self.fetch(path)
         self.assertEqual(response.code, 200)
-        self.assertEqual(response.body, "I'm tornadoweb")
+        self.assertEqual(response.body.decode("utf-8"), "I'm tornadoweb")
 
     def test_account_update(self):
         """authenticatedのデコレーターが使われている時、mock を使って
@@ -124,7 +124,4 @@ class TestSample(tornado.testing.AsyncHTTPTestCase):
                                   follow_redirects=False,
                                   body=urlencode_request_params(**params))
         self.assertEqual(response.code, 200)
-        self.assertEqual(response.body, "{error:0, msg:{bio:%s}}" % bio)
-
-if __name__ == "__main__":
-    tornado.testing.main()
+        self.assertEqual(response.body.decode("utf-8"), "{error:0, msg:{bio:%s}}" % bio)
