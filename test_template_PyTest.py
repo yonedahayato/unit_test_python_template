@@ -66,3 +66,4 @@ def test_8(x, y):
 # pytest -m small
 # pytest -v
 # pytest -n 2
+# pytest --capture=no
