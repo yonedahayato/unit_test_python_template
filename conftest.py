@@ -3,7 +3,8 @@ import logging
 import os
 import pytest
 
-logging.basicConfig(filename='pytest.log',level=logging.DEBUG)
+fmt = "%(asctime)s %(levelname)s %(name)s :%(message)s"
+logging.basicConfig(filename='pytest.log',level=logging.DEBUG, format=fmt)
 
 @pytest.fixture(scope='session', autouse=True)
 def scope_session():

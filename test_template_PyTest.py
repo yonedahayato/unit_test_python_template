@@ -8,7 +8,8 @@ import os
 import pytest
 import time
 
-logging.basicConfig(filename='pytest.log',level=logging.DEBUG)
+fmt = "%(asctime)s %(levelname)s %(name)s :%(message)s"
+logging.basicConfig(filename='pytest.log',level=logging.DEBUG, format=fmt)
 
 def log(msg):
     logging.debug(msg)
